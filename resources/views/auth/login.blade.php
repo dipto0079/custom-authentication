@@ -45,6 +45,18 @@
 
                         <form action="{{route('auth.check')}}" method="post">
                             @csrf
+                            <div class="results">
+                                @if(Session::get('success'))
+                                    <div class="alert alert-success">
+                                        {{ Session::get('success') }}
+                                    </div>
+                                @endif
+                                @if(Session::get('fail'))
+                                    <div class="alert alert-danger">
+                                        {{ Session::get('fail') }}
+                                    </div>
+                                @endif
+                            </div>
                             <div class="form-group mb-3">
                                 <label for="emailaddress">Email address</label>
                                 <input class="form-control" type="email" name="email" value="{{old('email')}}" placeholder="Enter your email">

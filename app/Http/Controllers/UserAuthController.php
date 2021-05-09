@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Models\UserAuth;
 
 class UserAuthController extends Controller
@@ -20,11 +21,21 @@ class UserAuthController extends Controller
            'email'=>'required|email',
            'password'=>'required|min:4|max:15',
         ]);
+
         $user= new UserAuth();
         $user->name=$request->name;
         $user->email=$request->email;
         $user->password=Hash::make($request->password);
         $query=$user->save();
+
+//        $query=DB::table('user_auths')->insert([
+//            'name'=>$request->name,
+//            'email'=>$request->email,
+//            'password'=>Hash::make($request->password)
+//        ]);
+
+
+
         if($query){
             return back()->with('success',"You have been successfuly registered");
         }else{
